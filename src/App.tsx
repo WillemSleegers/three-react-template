@@ -39,9 +39,9 @@ export const App = () => {
 
           <Player />
 
-          <RigidBody type="fixed" restitution={0.2} friction={0}>
+          <RigidBody type="fixed" restitution={0.2} friction={1}>
             <mesh position={[0, -3, 0]} receiveShadow>
-              <boxGeometry args={[10, 0.2, 10]} />
+              <boxGeometry args={[50, 0.2, 50]} />
               <meshStandardMaterial color="limegreen" />
             </mesh>
           </RigidBody>
