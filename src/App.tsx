@@ -1,13 +1,13 @@
-import { useRef } from "react"
 import { Canvas } from "@react-three/fiber"
 import {
   OrbitControls,
   PointerLockControls,
   KeyboardControls,
+  Sky,
 } from "@react-three/drei"
 import { Player } from "./Player"
-import { Mesh } from "three"
 import { Physics, Debug, RigidBody } from "@react-three/rapier"
+import { Sun } from "./components/lights/Sun"
 
 export const App = () => {
   return (
@@ -20,28 +20,25 @@ export const App = () => {
         { name: "jump", keys: ["Space"] },
       ]}
     >
-      <Canvas>
+      <Canvas shadows>
         <PointerLockControls makeDefault />
         <Physics>
-          <directionalLight
-            position={[1, 2, 3]}
-            intensity={1.5}
-            castShadow
-            shadow-mapSize={[1024, 1024]}
-            shadow-camera-near={1}
-            shadow-camera-far={10}
-            shadow-camera-top={10}
-            shadow-camera-right={10}
-            shadow-camera-bottom={-10}
-            shadow-camera-left={-10}
-          />
-          <ambientLight intensity={0.5} />
+          <Sky />
+          <Sun />
+          <ambientLight intensity={0.25} />
 
           <Player />
 
-          <RigidBody type="fixed" restitution={0.2} friction={1}>
+          <RigidBody>
+            <mesh position={[2, 0, 2]} castShadow>
+              <boxGeometry args={[2, 2, 2]} />
+              <meshStandardMaterial color="red" />
+            </mesh>
+          </RigidBody>
+
+          <RigidBody type="fixed">
             <mesh position={[0, -3, 0]} receiveShadow>
-              <boxGeometry args={[50, 0.2, 50]} />
+              <boxGeometry args={[250, 0.2, 250]} />
               <meshStandardMaterial color="limegreen" />
             </mesh>
           </RigidBody>

@@ -25,22 +25,25 @@ export const Player = () => {
       .subVectors(frontVector, sideVector)
       .normalize()
       .multiplyScalar(SPEED)
+      .applyEuler(camera.rotation)
 
-    velocity.set(direction.x, 0, direction.z)
-    const currentDirection = cube.current!.translation()
+    velocity.set(direction.x * 2, 0, direction.z * 2)
+    console.log(velocity)
 
-    currentDirection.add(direction)
+    cube.current!.applyImpulse(velocity)
 
-    cube.current!.setNextKinematicTranslation(currentDirection)
-
-    //cube.current!.setTranslation(velocity)
-    //cube.current!.setTranslation(velocity)
+    //const currentDirection = cube.current!.translation()
+    //currentDirection.add(velocity)
+    //cube.current!.setNextKinematicTranslation(currentDirection)
 
     // Update camera
     const bodyPosition = cube.current!.translation()
     const cameraPosition = new Vector3()
 
     cameraPosition.copy(bodyPosition)
+
+    cameraPosition.y += 4
+    cameraPosition.x += -4
 
     camera.position.copy(cameraPosition)
   })
@@ -51,7 +54,8 @@ export const Player = () => {
       mass={1}
       friction={0}
       restitution={0}
-      type="kinematicPosition"
+      enabledRotations={[false, false, false]}
+      linearDamping={10}
     >
       <mesh castShadow rotation={[0, Math.PI * 0.5, 0]}>
         <capsuleGeometry />
