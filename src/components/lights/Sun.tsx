@@ -1,16 +1,23 @@
 import { useRef } from "react"
-import { DirectionalLightHelper } from "three"
+import { Vector3, DirectionalLightHelper, DirectionalLight } from "three"
 import { useHelper } from "@react-three/drei"
 
-export const Sun = () => {
-  const sun = useRef(null)
+type sunProps = {
+  position: Vector3
+  intensity: number
+}
+
+export const Sun = (props: sunProps) => {
+  const { position, intensity } = props
+
+  const sun = useRef<DirectionalLight>(null)
   useHelper(sun, DirectionalLightHelper, 1)
 
   return (
     <directionalLight
       ref={sun}
-      position={[100, 40, 0]}
-      intensity={1}
+      position={position}
+      intensity={intensity}
       castShadow
       shadow-mapSize={[1024, 1024]}
       shadow-camera-near={1}
