@@ -15,17 +15,17 @@ export const Player = () => {
   const sideVector = new Vector3()
   const SPEED = 100
 
+  const vec = new Vector3()
+
   const [subscribeKeys, getKeys] = useKeyboardControls()
 
   useFrame((state, delta) => {
     const { forward, backward, leftward, rightward, jump } = getKeys()
     const camera = state.camera
-    //cameraPosition = ref.current!.getWorldPosition(new Vector3())
-    cameraPosition = body.current!.translation()
+    ref.current!.getWorldPosition(camera.position)
 
-    cameraPosition.y += 2
-    cameraPosition.z += 2
-    camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z)
+    camera.position.y += 2
+    camera.position.z += 2
 
     frontVector.set(0, 0, Number(backward) - Number(forward))
     sideVector.set(Number(leftward) - Number(rightward), 0, 0)
@@ -64,7 +64,7 @@ export const Player = () => {
         linearDamping={10}
         gravityScale={10}
       >
-        <mesh ref={ref} castShadow rotation={[0, Math.PI * 0.5, 0]}>
+        <mesh ref={ref} castShadow>
           <capsuleGeometry args={[0.2, 0.5, 1]} />
           <meshStandardMaterial flatShading color="mediumpurple" />
         </mesh>
