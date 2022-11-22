@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { Canvas } from "@react-three/fiber"
 import { PointerLockControls, KeyboardControls } from "@react-three/drei"
 import { Physics, Debug } from "@react-three/rapier"
@@ -17,33 +16,21 @@ export const App = () => {
   const { physicsDebug } = useControls("debug", { physicsDebug: false })
   const { showShadows } = useControls("shadows", { showShadows: true })
 
-  const [locked, setLocked] = useState(false)
-
   const showDebug = window.location.hash === "#debug"
-
-  const onLock = () => {
-    setLocked(true)
-  }
-
-  const onUnlock = () => {
-    setLocked(false)
-  }
 
   return (
     <KeyboardControls map={keys}>
       <Leva collapsed={false} hidden={!showDebug} />
       <Canvas shadows={showShadows}>
         {perfVisible && <Perf position="top-left" />}
-        {/* <PointerLockControls makeDefault onLock={onLock} onUnlock={onUnlock} /> */}
+        {/* <PointerLockControls makeDefault /> */}
 
         <Sky />
-        <Physics timeStep="vary">
+        <Physics>
           {physicsDebug && <Debug />}
-
           <ambientLight intensity={0.25} />
           <Floor />
           <BarGraph />
-
           <Player />
         </Physics>
       </Canvas>
