@@ -10,12 +10,9 @@ export const Player = () => {
 
   const direction = new Vector3()
   let velocity = new Vector3()
-  let cameraPosition = new Vector3()
   const frontVector = new Vector3()
   const sideVector = new Vector3()
   const SPEED = 100
-
-  const vec = new Vector3()
 
   const [subscribeKeys, getKeys] = useKeyboardControls()
 
@@ -23,9 +20,8 @@ export const Player = () => {
     const { forward, backward, leftward, rightward, jump } = getKeys()
     const camera = state.camera
     ref.current!.getWorldPosition(camera.position)
-
-    camera.position.y += 2
-    camera.position.z += 2
+    camera.position.y += 1
+    camera.position.z += 3
 
     frontVector.set(0, 0, Number(backward) - Number(forward))
     sideVector.set(Number(leftward) - Number(rightward), 0, 0)

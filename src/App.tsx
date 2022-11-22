@@ -1,10 +1,6 @@
 import { useState } from "react"
 import { Canvas } from "@react-three/fiber"
-import {
-  PointerLockControls,
-  PerspectiveCamera,
-  KeyboardControls,
-} from "@react-three/drei"
+import { PointerLockControls, KeyboardControls } from "@react-three/drei"
 import { Physics, Debug } from "@react-three/rapier"
 import { Player } from "./components/Player"
 import { Sky } from "./components/Sky"
@@ -38,10 +34,10 @@ export const App = () => {
       <Leva collapsed={false} hidden={!showDebug} />
       <Canvas shadows={showShadows}>
         {perfVisible && <Perf position="top-left" />}
-        <PointerLockControls makeDefault onLock={onLock} onUnlock={onUnlock} />
+        {/* <PointerLockControls makeDefault onLock={onLock} onUnlock={onUnlock} /> */}
 
         <Sky />
-        <Physics interpolate={true}>
+        <Physics timeStep="vary">
           {physicsDebug && <Debug />}
 
           <ambientLight intensity={0.25} />
