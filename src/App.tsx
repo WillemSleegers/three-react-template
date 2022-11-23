@@ -1,9 +1,10 @@
 import { Canvas } from "@react-three/fiber"
 import { PointerLockControls, KeyboardControls } from "@react-three/drei"
-import { Physics, Debug } from "@react-three/rapier"
+import { Physics, Debug } from "@react-three/cannon"
 import { Player } from "./components/Player"
 import { Sky } from "./components/Sky"
 import { Floor } from "./components/Floor"
+import { Cube } from "./components/Cube"
 import { BarGraph } from "./components/BarGraph"
 
 import { Leva, useControls } from "leva"
@@ -23,7 +24,7 @@ export const App = () => {
       <Leva collapsed={false} hidden={!showDebug} />
       <Canvas shadows={showShadows}>
         {perfVisible && <Perf position="top-left" />}
-        {/* <PointerLockControls makeDefault /> */}
+        <PointerLockControls makeDefault />
 
         <Sky />
         <Physics>
@@ -31,7 +32,7 @@ export const App = () => {
           <ambientLight intensity={0.25} />
           <Floor />
           <BarGraph />
-          <Player />
+          {/*<Player /> */}
         </Physics>
       </Canvas>
     </KeyboardControls>
